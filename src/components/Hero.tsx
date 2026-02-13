@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { MapPin } from "lucide-react";
-import doctorHero from "@/assets/doctor-hero.avif";
+import doctorHero from "@/assets/doctor-hero-new.png";
 import logo from "@/assets/logo.png";
 
 const metrics = [
@@ -12,9 +12,9 @@ const metrics = [
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[90vh] lg:min-h-[90vh] flex items-center overflow-hidden bg-background">
+    <section className="relative min-h-[90vh] lg:min-h-[90vh] flex items-center overflow-hidden bg-background pt-20 lg:pt-0">
       {/* ── MOBILE HERO ── */}
-      <div className="lg:hidden w-full min-h-screen flex flex-col items-center justify-center px-6 py-24">
+      <div className="lg:hidden w-full min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -143,11 +143,12 @@ const Hero = () => {
         transition={{ duration: 1.2, delay: 0.3 }}
         className="hidden lg:block absolute top-0 right-0 w-[60%] h-full"
       >
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-background via-background/60 to-transparent w-[30%]" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-background via-background/40 to-transparent w-[25%]" />
         <img
           src={doctorHero}
           alt="Врач клиники Бабенко"
-          className="w-full h-full object-cover object-top"
+          className="w-full h-full object-cover object-center"
+          style={{ filter: 'contrast(1.1) brightness(1.0)' }}
         />
       </motion.div>
     </section>
