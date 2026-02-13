@@ -84,13 +84,14 @@ const Hero = () => {
       </div>
 
       {/* ── DESKTOP HERO ── */}
-      <div className="hidden lg:flex relative z-10 w-[40%] items-center min-h-[90vh] pl-[8%] pr-0">
+      <div className="hidden lg:flex relative z-10 w-[45%] items-center min-h-[90vh] pl-[8%] pr-[60px]">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
+          className="max-w-[520px]"
         >
-          <h1 className="text-[72px] font-bold text-primary leading-[1.05] tracking-[-0.02em] mb-4">
+          <h1 className="text-[64px] font-bold text-primary leading-[1.1] tracking-[-0.02em] mb-4">
             Клиника Бабенко
           </h1>
           <p className="text-2xl text-muted-foreground font-normal mb-3 max-w-md">
@@ -137,20 +138,14 @@ const Hero = () => {
       </div>
 
       {/* Desktop photo */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, delay: 0.3 }}
-        className="hidden lg:block absolute top-0 right-0 w-[60%] h-full"
-      >
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-background via-background/40 to-transparent w-[25%]" />
+      <div className="hidden lg:block absolute top-0 right-0 w-[55%] h-full bg-[hsl(220,14%,96%)]">
         <img
           src={doctorHero}
           alt="Врач клиники Бабенко"
-          className="w-full h-full object-cover object-center"
-          style={{ filter: 'contrast(1.1) brightness(1.0)' }}
+          className="w-full h-full object-contain object-center-right"
+          style={{ filter: 'contrast(1.1) brightness(1.0)', objectPosition: 'center right' }}
         />
-      </motion.div>
+      </div>
     </section>
   );
 };
