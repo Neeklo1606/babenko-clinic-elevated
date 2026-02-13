@@ -3,22 +3,20 @@ import { Link } from "react-router-dom";
 import { Star, BookOpen, Mic, PenTool } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import doctorPhoto from "@/assets/doctor-babenko.png";
+import doctorPhoto from "@/assets/doctor-hero-new.png";
 
 const metrics = [
-  { value: "2 500+", label: "пациентов" },
-  { value: "18", label: "лет опыта" },
-  { value: "150+", label: "процедур/мес" },
+  { value: "9+", label: "лет опыта" },
+  { value: "2 000+", label: "пациентов" },
+  { value: "100+", label: "процедур/мес" },
 ];
 
 const timeline = [
-  { year: "2006", title: "Кемеровская государственная медицинская академия", desc: "Лечебное дело, диплом с отличием" },
-  { year: "2008", title: "Ординатура по дерматовенерологии", desc: "Новосибирский НИИКЭЛ" },
-  { year: "2012", title: "Кандидат медицинских наук", desc: "Защита диссертации по дерматоскопии меланоцитарных образований" },
-  { year: "2015", title: "European Academy of Dermatology and Venereology", desc: "Сертификат по дерматоскопии и онкодерматологии" },
-  { year: "2018", title: "Повышение квалификации — лазерная дерматология", desc: "Институт пластической хирургии и косметологии, Москва" },
-  { year: "2021", title: "International Congress of Dermatology, Милан", desc: "Доклад: «Цифровая дерматоскопия в ранней диагностике меланомы»" },
-  { year: "2024", title: "Дополнительная специализация — косметология", desc: "Сертификат по инъекционным и аппаратным методикам" },
+  { year: "2015", title: "Врач дерматологического диспансера", desc: "Клиническая практика в дерматовенерологии" },
+  { year: "2017", title: "Заведующий стационарным отделением", desc: "Кожно-венерологический диспансер, организация лечебного процесса" },
+  { year: "2020", title: "Заведующий стационарным отделением ГБУЗ КККВД", desc: "Руководство отделением, внедрение современных протоколов лечения" },
+  { year: "", title: "Организатор здравоохранения", desc: "Дополнительная квалификация в области управления медицинскими учреждениями" },
+  { year: "", title: "Диссертационная работа", desc: "Научное исследование на тему здоровой кожи" },
 ];
 
 const specializations = [
@@ -50,9 +48,9 @@ const achievements = [
 ];
 
 const reviews = [
-  { text: "Елена Викторовна — единственный врач, который смог поставить правильный диагноз после 3 лет поисков. Профессионал высшего уровня.", name: "Анна К.", date: "Ноябрь 2024" },
-  { text: "Очень внимательный и компетентный врач. Всё объясняет, показывает результаты на дерматоскопе. Лечение помогло за 2 месяца.", name: "Дмитрий С.", date: "Октябрь 2024" },
-  { text: "Пришла с проблемой пигментации. Индивидуально подобранный курс дал результат, которого я не ожидала. Рекомендую.", name: "Мария В.", date: "Сентябрь 2024" },
+  { text: "Владимир Юрьевич — внимательный и компетентный специалист. Всё объясняет доступно, назначает только необходимое лечение. Результат виден уже через месяц.", name: "Анна К.", date: "Ноябрь 2024" },
+  { text: "Отличный врач! Профессиональный подход, грамотная диагностика. Очень доволен результатом лечения.", name: "Дмитрий С.", date: "Октябрь 2024" },
+  { text: "Обратилась с проблемой кожи, которую не могли решить другие врачи. Владимир Юрьевич подобрал эффективное лечение. Рекомендую!", name: "Мария В.", date: "Сентябрь 2024" },
 ];
 
 const DoctorProfile = () => {
@@ -68,7 +66,7 @@ const DoctorProfile = () => {
             <span className="mx-2">/</span>
             <span>Врачи</span>
             <span className="mx-2">/</span>
-            <span className="text-foreground">Бабенко Е.В.</span>
+            <span className="text-foreground">Бабенко В.Ю.</span>
           </nav>
         </div>
       </div>
@@ -81,7 +79,7 @@ const DoctorProfile = () => {
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
               <img
                 src={doctorPhoto}
-                alt="Бабенко Елена Викторовна"
+                alt="Бабенко Владимир Юрьевич"
                 className="w-full max-w-md mx-auto rounded-xl shadow-xl shadow-primary/10 object-cover aspect-[3/4]"
               />
             </motion.div>
@@ -89,16 +87,16 @@ const DoctorProfile = () => {
             {/* Info */}
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.15 }} className="flex flex-col justify-center">
               <h1 className="text-4xl lg:text-[48px] font-semibold text-primary leading-[1.15] tracking-[-0.01em] mb-3">
-                Бабенко<br />Елена Викторовна
+                Бабенко<br />Владимир Юрьевич
               </h1>
               <p className="text-xl text-muted-foreground mb-1">
-                Врач-дерматовенеролог, косметолог
+                Врач-дерматовенеролог
               </p>
               <p className="text-lg text-muted-foreground/80 mb-1">
-                Высшая категория, кандидат медицинских наук
+                Заведующий стационарным отделением ГБУЗ КККВД
               </p>
               <p className="text-lg text-primary font-medium mb-8">
-                Опыт работы — 18 лет
+                Опыт работы с 2015 года
               </p>
 
               {/* Metrics */}
