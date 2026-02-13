@@ -1,24 +1,28 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import iconDermatology from "@/assets/icon-dermatology.png";
-import iconTrichology from "@/assets/icon-trichology.png";
-import iconCosmetology from "@/assets/icon-cosmetology.png";
+import { Microscope, Flower2, Syringe, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const directions = [
   {
     title: "Дерматология",
-    description: "Диагностика и лечение заболеваний кожи с применением современных методик и оборудования",
-    icon: iconDermatology,
+    description:
+      "Диагностика и лечение заболеваний кожи с применением современных методик и оборудования экспертного класса",
+    icon: Microscope,
+    link: "/dermatology",
   },
   {
     title: "Трихология",
-    description: "Комплексное восстановление здоровья волос и кожи головы на основе доказательной медицины",
-    icon: iconTrichology,
+    description:
+      "Комплексное восстановление здоровья волос и кожи головы на основе доказательной медицины",
+    icon: Flower2,
+    link: "#",
   },
   {
     title: "Косметология",
-    description: "Инъекционные и аппаратные методики для естественного омоложения и коррекции",
-    icon: iconCosmetology,
+    description:
+      "Инъекционные и аппаратные методики для естественного омоложения и эстетической коррекции",
+    icon: Syringe,
+    link: "/services/laser-co2",
   },
 ];
 
@@ -31,7 +35,7 @@ const Directions = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl lg:text-[48px] font-semibold text-primary text-center mb-16"
+          className="text-4xl lg:text-[56px] font-semibold text-primary text-center mb-16"
         >
           Направления клиники
         </motion.h2>
@@ -44,26 +48,24 @@ const Directions = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="glass-card p-8 flex flex-col items-center text-center group hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
+              className="relative bg-card rounded-[20px] border border-border p-12 pb-16 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
             >
-              <img
-                src={dir.icon}
-                alt={dir.title}
-                className="w-[140px] h-[140px] object-contain mb-6"
-              />
-              <h3 className="text-2xl font-semibold text-primary mb-3">
+              <div className="w-12 h-12 flex items-center justify-center mb-6">
+                <dir.icon className="w-12 h-12 text-primary" strokeWidth={1.5} />
+              </div>
+              <h3 className="text-[28px] font-semibold text-primary mb-3">
                 {dir.title}
               </h3>
-              <p className="text-muted-foreground text-base leading-relaxed mb-6 line-clamp-2">
+              <p className="text-base text-muted-foreground leading-[1.6] line-clamp-3 mb-6">
                 {dir.description}
               </p>
-              <a
-                href="#"
-                className="mt-auto flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-200"
+              <Link
+                to={dir.link}
+                className="absolute bottom-12 left-12 flex items-center gap-2 text-primary font-medium text-base hover:underline transition-all duration-200"
               >
-                Подробнее
+                Узнать больше
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
             </motion.div>
           ))}
         </div>
