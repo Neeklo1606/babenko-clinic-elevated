@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Star, BookOpen, Mic, PenTool } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import doctorPhoto from "@/assets/doctor-hero-new.png";
+import doctorPhoto from "@/assets/doctor-hero-v2.png";
 
 const metrics = [
   { value: "9+", label: "лет опыта" },
