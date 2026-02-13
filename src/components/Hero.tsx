@@ -74,7 +74,7 @@ const Hero = () => {
               Записаться на приём
             </Link>
             <Link
-              to="/doctor/babenko"
+              to="/doctors"
               className="flex items-center justify-center border-2 border-primary text-primary h-14 w-full rounded-xl text-lg font-semibold active:bg-primary/5 transition-colors duration-200"
             >
               Выбрать врача
@@ -128,7 +128,7 @@ const Hero = () => {
               Записаться на приём
             </Link>
             <Link
-              to="/doctor/babenko"
+              to="/doctors"
               className="flex items-center justify-center border-2 border-primary text-primary h-14 w-[180px] rounded-xl text-lg font-semibold hover:bg-primary/5 transition-all duration-200"
             >
               Выбрать врача

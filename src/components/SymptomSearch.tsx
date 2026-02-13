@@ -338,7 +338,9 @@ const SymptomSearch = () => {
               Позвонить
             </a>
             <a
-              href="#"
+              href="https://wa.me/73843123456"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 h-14 px-8 border-2 border-primary-foreground text-primary-foreground rounded-xl text-lg font-semibold hover:bg-primary-foreground/10 transition-colors"
             >
               <MessageCircle className="w-5 h-5" />

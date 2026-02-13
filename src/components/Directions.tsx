@@ -7,19 +7,19 @@ const directions = [
     title: "Дерматология",
     description: "Диагностика и лечение заболеваний кожи с применением современных методик",
     icon: Microscope,
-    link: "/dermatology",
+    link: "/directions/dermatology",
   },
   {
     title: "Трихология",
     description: "Комплексное восстановление здоровья волос и кожи головы",
     icon: Flower2,
-    link: "#",
+    link: "/directions/trichology",
   },
   {
     title: "Косметология",
     description: "Инъекционные и аппаратные методики для омоложения и коррекции",
     icon: Syringe,
-    link: "/services/laser-co2",
+    link: "/directions/cosmetology",
   },
 ];
 
