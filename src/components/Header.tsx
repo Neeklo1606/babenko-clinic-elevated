@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const Header = () => {
@@ -25,9 +26,9 @@ const Header = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
-        <a href="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">
           <img src={logo} alt="Клиника Бабенко" className="h-12" />
-        </a>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
@@ -41,9 +42,9 @@ const Header = () => {
           ))}
         </nav>
 
-        <button className="bg-primary text-primary-foreground px-6 py-2.5 rounded-xl text-sm font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-200">
+        <Link to="/appointment" className="bg-primary text-primary-foreground px-6 py-2.5 rounded-xl text-sm font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-200">
           Записаться
-        </button>
+        </Link>
       </div>
     </motion.header>
   );
