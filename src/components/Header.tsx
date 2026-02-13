@@ -1,51 +1,35 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Phone, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 
+const navItems = [
+  { label: "Направления", href: "/directions" },
+  { label: "Врачи", href: "/doctors" },
+  { label: "Услуги", href: "/services" },
+  { label: "Цены", href: "/prices" },
+  { label: "О клинике", href: "/about" },
+];
+
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  const navItems = [
-    { label: "Направления", href: "#направления" },
-    { label: "Врачи", href: "/doctor/babenko" },
-    { label: "Услуги", href: "/services/laser-co2" },
-    { label: "Цены", href: "#цены" },
-    { label: "О клинике", href: "#о-клинике" },
-  ];
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
-  const NavLink = ({ item }: { item: typeof navItems[0] }) =>
-    item.href.startsWith("/") ? (
-      <Link
-        to={item.href}
-        onClick={() => setMenuOpen(false)}
-        className="text-muted-foreground hover:text-primary transition-colors text-base tracking-wide"
-      >
-        {item.label}
-      </Link>
-    ) : (
-      <a
-        href={item.href}
-        onClick={() => setMenuOpen(false)}
-        className="text-muted-foreground hover:text-primary transition-colors text-base tracking-wide"
-      >
-        {item.label}
-      </a>
-    );
+  const isActive = (href: string) => {
+    if (href === "/") return location.pathname === "/";
+    return location.pathname.startsWith(href);
+  };
 
   return (
     <>
@@ -53,28 +37,35 @@ const Header = () => {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-16 lg:h-20 bg-background/95 backdrop-blur-xl border-b border-border"
+        className="fixed top-0 left-0 right-0 z-50 h-16 lg:h-20 bg-background/95 backdrop-blur-xl border-b border-border"
       >
         <div className="container mx-auto flex items-center justify-between h-full px-4 lg:px-6">
-          {/* Logo */}
           <Link to="/" className="shrink-0">
             <img src={logo} alt="Клиника Бабенко" className="h-8 lg:h-10" />
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-10">
             {navItems.map((item) => (
-              <NavLink key={item.label} item={item} />
+              <Link
+                key={item.label}
+                to={item.href}
+                className={`text-base tracking-wide transition-colors relative pb-1 ${
+                  isActive(item.href)
+                    ? "text-primary font-medium"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
+              >
+                {item.label}
+                {isActive(item.href) && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
+                )}
+              </Link>
             ))}
           </nav>
 
-          {/* Desktop right side */}
           <div className="hidden lg:flex items-center gap-6">
             <div className="text-right">
-              <a
-                href="tel:+73843123456"
-                className="flex items-center gap-2 text-primary font-medium text-base hover:opacity-80 transition-opacity"
-              >
+              <a href="tel:+73843123456" className="flex items-center gap-2 text-primary font-medium text-base hover:opacity-80 transition-opacity">
                 <Phone className="w-4 h-4" />
                 +7 (3843) 123-456
               </a>
@@ -88,27 +79,17 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Mobile: phone + burger */}
           <div className="flex lg:hidden items-center gap-3">
-            <a
-              href="tel:+73843123456"
-              className="w-10 h-10 flex items-center justify-center text-primary"
-              aria-label="Позвонить"
-            >
+            <a href="tel:+73843123456" className="w-10 h-10 flex items-center justify-center text-primary" aria-label="Позвонить">
               <Phone className="w-5 h-5" />
             </a>
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="w-10 h-10 flex items-center justify-center text-foreground"
-              aria-label="Меню"
-            >
+            <button onClick={() => setMenuOpen(!menuOpen)} className="w-10 h-10 flex items-center justify-center text-foreground" aria-label="Меню">
               {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
       </motion.header>
 
-      {/* Mobile full-screen menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -121,36 +102,28 @@ const Header = () => {
             <nav className="flex-1 flex flex-col px-6 py-8">
               {navItems.map((item) => (
                 <div key={item.label} className="border-b border-border">
-                  {item.href.startsWith("/") ? (
-                    <Link
-                      to={item.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="block py-5 text-xl text-foreground active:text-primary transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  ) : (
-                    <a
-                      href={item.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="block py-5 text-xl text-foreground active:text-primary transition-colors"
-                    >
-                      {item.label}
-                    </a>
-                  )}
+                  <Link
+                    to={item.href}
+                    className={`block py-5 text-xl transition-colors ${
+                      isActive(item.href) ? "text-primary font-medium" : "text-foreground active:text-primary"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
                 </div>
               ))}
-              <a
-                href="tel:+73843123456"
-                className="block py-5 text-xl text-primary font-medium border-b border-border"
-              >
+              <div className="border-b border-border">
+                <Link to="/contacts" className={`block py-5 text-xl transition-colors ${isActive("/contacts") ? "text-primary font-medium" : "text-foreground"}`}>
+                  Контакты
+                </Link>
+              </div>
+              <a href="tel:+73843123456" className="block py-5 text-xl text-primary font-medium border-b border-border">
                 +7 (3843) 123-456
               </a>
             </nav>
             <div className="px-6 pb-8">
               <Link
                 to="/appointment"
-                onClick={() => setMenuOpen(false)}
                 className="flex items-center justify-center w-full h-14 bg-primary text-primary-foreground rounded-xl text-lg font-semibold"
               >
                 Записаться на приём
