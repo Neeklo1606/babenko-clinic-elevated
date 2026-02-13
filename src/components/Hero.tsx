@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { MapPin } from "lucide-react";
-import doctorHero from "@/assets/doctor-hero-new.png";
+import doctorHero from "@/assets/doctor-hero-v2.png";
 import logo from "@/assets/logo.png";
 
 const metrics = [
@@ -84,14 +84,14 @@ const Hero = () => {
       </div>
 
       {/* ── DESKTOP HERO ── */}
-      <div className="hidden lg:flex relative z-10 w-[45%] items-center min-h-[90vh] pl-[8%] pr-[60px]">
+      <div className="hidden lg:flex relative z-10 w-[50%] items-center min-h-[90vh] pl-[8%] pr-[5%] bg-white">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-[520px]"
+          className="max-w-[480px]"
         >
-          <h1 className="text-[64px] font-bold text-primary leading-[1.1] tracking-[-0.02em] mb-4">
+          <h1 className="text-[56px] font-bold text-primary leading-[1.1] tracking-[-0.02em] mb-4">
             Клиника Бабенко
           </h1>
           <p className="text-2xl text-muted-foreground font-normal mb-3 max-w-md">
@@ -138,13 +138,17 @@ const Hero = () => {
       </div>
 
       {/* Desktop photo */}
-      <div className="hidden lg:block absolute top-0 right-0 w-[55%] h-full bg-[hsl(220,14%,96%)]">
-        <img
-          src={doctorHero}
-          alt="Врач клиники Бабенко"
-          className="w-full h-full object-contain object-center-right"
-          style={{ filter: 'contrast(1.1) brightness(1.0)', objectPosition: 'center right' }}
-        />
+      <div className="hidden lg:block absolute top-0 right-0 w-[50%] h-full">
+        {/* Gradient transition */}
+        <div className="absolute inset-y-0 left-0 w-[30%] z-10 bg-gradient-to-r from-white to-[#E8E8E8]/0" />
+        <div className="w-full h-full bg-[#E8E8E8] flex items-end justify-end pr-[8%]">
+          <img
+            src={doctorHero}
+            alt="Врач клиники Бабенко"
+            className="h-[70%] w-auto object-contain"
+            style={{ filter: 'contrast(1.05) brightness(1.0)' }}
+          />
+        </div>
       </div>
     </section>
   );
