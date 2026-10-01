@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft, CalendarDays, ChevronDown, Menu, MapPin, Search, Stethoscope, User, X } from "lucide-react";
 import { Drawer, DrawerContent, DrawerTitle } from "@/components/ui/drawer";
 import Wordmark from "./Wordmark";
@@ -25,6 +25,7 @@ const deskNav = [["/clinics", "Стоматологии"], ["/doctors", "Вра�
 interface Props { children: React.ReactNode; title?: string; back?: boolean; right?: React.ReactNode; hideNav?: boolean; hideFooter?: boolean; transparentHeader?: boolean; noHeader?: boolean }
 
 const MarketShell = ({ children, title, back, right, hideNav, hideFooter, noHeader }: Props) => {
+  const loc = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [search, setSearch] = useState<{ open: boolean; q: string }>({ open: false, q: "" });
   const [cityOpen, setCityOpen] = useState(false);
@@ -75,7 +76,7 @@ const MarketShell = ({ children, title, back, right, hideNav, hideFooter, noHead
           </header>
         )}
 
-        <main key={useLocation().pathname} className={cn("animate-page",!hideNav && "pb-[calc(64px+env(safe-area-inset-bottom))] lg:pb-0")}>{children}</main>
+        <main key={loc.pathname} className={cn("animate-page",!hideNav && "pb-[calc(64px+env(safe-area-inset-bottom))] lg:pb-0")}>{children}</main>
         {!hideFooter && <MarketFooter />}
 
         {!hideNav && (
