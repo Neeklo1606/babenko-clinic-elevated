@@ -24,7 +24,7 @@ export const Rating = ({ rating, reviews, className }: { rating: number; reviews
   ) : <span className={cn("text-[14.5px] text-ink-2", className)}>Новая клиника · пока без отзывов</span>;
 
 export const Photo = ({ src, alt, className, eager }: { src?: string; alt: string; className?: string; eager?: boolean }) =>
-  src ? <img src={src} alt={alt} loading={eager ? "eager" : "lazy"} className={cn("h-full w-full object-cover", className)} />
+  src ? <img src={src} alt={alt} loading={eager ? "eager" : "lazy"} decoding="async" onLoad={(e) => e.currentTarget.classList.add("is-loaded")} className={cn("img-fade h-full w-full object-cover", className)} />
     : <div className={cn("flex h-full w-full flex-col items-center justify-center gap-2 bg-surface-2 text-ink-3", className)}><ImageOff className="h-6 w-6" strokeWidth={1.5} /><span className="text-[13px]">Фото скоро появятся</span></div>;
 
 export const Chip = ({ active, children, onClick, className }: { active?: boolean; children: React.ReactNode; onClick?: () => void; className?: string }) => (

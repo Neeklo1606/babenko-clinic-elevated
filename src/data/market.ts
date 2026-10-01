@@ -1,16 +1,16 @@
-import clinic1 from "@/assets/m/clinic-1.jpg";
-import clinic2 from "@/assets/m/clinic-2.jpg";
-import clinic3 from "@/assets/m/clinic-3.jpg";
-import doctor1 from "@/assets/m/doctor-1.jpg";
-import doctor2 from "@/assets/m/doctor-2.jpg";
-import doctor3 from "@/assets/m/doctor-3.jpg";
-import doctor4 from "@/assets/m/doctor-4.jpg";
-import pPain from "@/assets/m/p-pain.jpg";
-import pClean from "@/assets/m/p-clean.jpg";
-import pSmile from "@/assets/m/p-smile.jpg";
-import pImplant from "@/assets/m/p-implant.jpg";
-import pKid from "@/assets/m/p-kid.jpg";
-import pAlign from "@/assets/m/p-align.jpg";
+import clinic1 from "@/assets/m/clinic-1.webp";
+import clinic2 from "@/assets/m/clinic-2.webp";
+import clinic3 from "@/assets/m/clinic-3.webp";
+import doctor1 from "@/assets/m/doctor-1.webp";
+import doctor2 from "@/assets/m/doctor-2.webp";
+import doctor3 from "@/assets/m/doctor-3.webp";
+import doctor4 from "@/assets/m/doctor-4.webp";
+import pPain from "@/assets/m/p-pain.webp";
+import pClean from "@/assets/m/p-clean.webp";
+import pSmile from "@/assets/m/p-smile.webp";
+import pImplant from "@/assets/m/p-implant.webp";
+import pKid from "@/assets/m/p-kid.webp";
+import pAlign from "@/assets/m/p-align.webp";
 
 export const CITY = "Ставрополь";
 

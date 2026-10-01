@@ -163,7 +163,7 @@ const ClinicPage = () => {
         <div role="dialog" aria-modal="true" className="fixed inset-0 z-[70] flex flex-col bg-graphite">
           <div className="flex justify-between p-3 text-ivory"><span className="px-2 py-3 text-[14px]">{photo + 1} / {c.images.length}</span><button onClick={() => setFull(false)} aria-label="Закрыть" className="flex h-11 w-11 items-center justify-center"><X className="h-6 w-6" /></button></div>
           <div className="no-scrollbar flex flex-1 snap-x snap-mandatory overflow-x-auto" onScroll={(e) => setPhoto(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}>
-            {c.images.map((src, i) => <img key={i} src={src} alt="" className="w-full shrink-0 snap-center object-contain" />)}
+            {c.images.map((src, i) => <img key={i} src={src} alt="" loading={i ? "lazy" : "eager"} decoding="async" className="w-full shrink-0 snap-center object-contain" />)}
           </div>
         </div>
       )}
