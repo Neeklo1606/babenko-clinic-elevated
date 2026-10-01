@@ -73,7 +73,7 @@ const Header = () => {
             </div>
             <Link
               to="/appointment"
-              className="bg-primary text-primary-foreground h-11 px-6 rounded-[10px] text-sm font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-200 flex items-center justify-center"
+              className="bg-lime text-ink h-11 px-6 rounded-xl text-sm font-medium hover:bg-lime-hover transition-all duration-200 flex items-center justify-center"
             >
               Записаться
             </Link>
