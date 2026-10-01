@@ -63,7 +63,8 @@
 
 @layer base {
   * { @apply border-border; }
-  html { -webkit-tap-highlight-color: transparent; }
+  html, body { overflow-x: clip; -webkit-tap-highlight-color: transparent; }
+  img { -webkit-user-drag: none; }
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Geist', system-ui, -apple-system, sans-serif;

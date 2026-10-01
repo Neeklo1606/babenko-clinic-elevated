@@ -50,7 +50,7 @@ export const ClinicCard = ({ c, service }: { c: Clinic; service?: string | null 
   const price = s ? c.prices[s.id] : Math.min(...Object.values(c.prices));
   const n = nearest(c.slots);
   return (
-    <article className="overflow-hidden rounded-[22px] border border-line bg-surface">
+    <article className="min-w-0 overflow-hidden rounded-[22px] border border-line bg-surface">
       <Link to={`/clinics/${c.id}${service ? `?service=${service}` : ""}`} className="block aspect-[16/10] overflow-hidden bg-surface-2">
         <Photo src={c.images[0]} alt={c.name} />
       </Link>
@@ -62,8 +62,8 @@ export const ClinicCard = ({ c, service }: { c: Clinic; service?: string | null 
 
         <div className="mt-4 flex items-end justify-between gap-3 border-t border-line pt-3.5">
           <div className="min-w-0">
-            <p className="text-[12.5px] text-ink-3">{s ? "По вашему запросу" : "Приём"}</p>
-            <p className="truncate text-[15px]">{s?.name ?? "Стоматология"}</p>
+            <p className="text-[12.5px] text-ink-3">{s ? "По вашему запросу" : "Услуги"}</p>
+            <p className="truncate text-[15px]">{s?.name ?? `${Object.keys(c.prices).length} направлений`}</p>
           </div>
           <p className="shrink-0 text-[16px] font-medium">{s ? fromRub(price) : `от ${price.toLocaleString("ru-RU")} ₽`}</p>
         </div>
@@ -87,25 +87,29 @@ export const ClinicCard = ({ c, service }: { c: Clinic; service?: string | null 
 };
 
 export const DoctorCard = ({ d, service, showClinic = true }: { d: Doctor; service?: string | null; showClinic?: boolean }) => {
+  const navigate = useNavigate();
   const clinic = getClinic(d.clinicId)!;
   const sid = service && d.services.includes(service) ? service : d.services[0];
   const s = getService(sid);
   const n = nearest(d.slots);
   return (
-    <article className="flex gap-4 rounded-[22px] border border-line bg-surface p-3.5">
-      <Link to={`/doctors/${d.id}`} className="block aspect-[4/5] w-[104px] shrink-0 overflow-hidden rounded-2xl bg-surface-2"><Photo src={d.image} alt={d.name} /></Link>
-      <div className="flex min-w-0 flex-1 flex-col">
-        <Link to={`/doctors/${d.id}`}><h3 className="text-[17px] font-medium leading-snug tracking-[-0.01em]">{d.name}</h3></Link>
-        <p className="text-[14px] text-ink-2">{d.role} · {d.years} лет опыта</p>
-        <Rating rating={d.rating} reviews={d.reviews} className="mt-1 text-[13.5px]" />
-        {showClinic && <p className="mt-0.5 truncate text-[13.5px] text-ink-2">{clinic.name}</p>}
-        <div className="mt-auto flex items-end justify-between gap-2 pt-2.5">
-          <div className="min-w-0">
-            <p className="truncate text-[13px] text-ink-2">{s?.name} · {fromRub(clinic.prices[sid])}</p>
-            <p className="text-[13.5px] font-medium">{n ? `${dayLabel(n.day)} · ${n.times[0]}` : "Нет записи"}</p>
-          </div>
-          <Link to={n ? bookUrl({ clinic: clinic.id, service: sid, day: n.day, time: n.times[0], doctor: d.id }) : `/doctors/${d.id}`} className={btn({ variant: "primary", size: "sm" })}>Время</Link>
+    <article className="min-w-0 rounded-[22px] border border-line bg-surface p-3.5">
+      <div className="flex min-w-0 gap-3.5">
+        <Link to={`/doctors/${d.id}`} className="block h-[112px] w-[90px] shrink-0 overflow-hidden rounded-2xl bg-surface-2"><Photo src={d.image} alt={d.name} /></Link>
+        <div className="min-w-0 flex-1 py-0.5">
+          <Link to={`/doctors/${d.id}`}><h3 className="text-[17px] font-medium leading-[1.25] tracking-[-0.015em]">{d.name}</h3></Link>
+          <p className="mt-0.5 text-[13.5px] leading-snug text-ink-2">{d.role}</p>
+          <p className="text-[13.5px] leading-snug text-ink-2">{d.years} лет опыта{showClinic && ` · ${clinic.name}`}</p>
+          <Rating rating={d.rating} reviews={d.reviews} className="mt-1.5 text-[13.5px]" />
+          <p className="mt-1.5 flex min-w-0 gap-1.5 text-[13px]"><span className="truncate text-ink-2">{s?.name}</span><span className="shrink-0 font-medium">{fromRub(clinic.prices[sid])}</span></p>
         </div>
+      </div>
+      <div className="mt-3.5 flex items-center justify-between gap-3 border-t border-line pt-3">
+        <div className="min-w-0">
+          <p className="text-[12.5px] text-ink-3">Ближайшее время</p>
+          <p className="text-[15px] font-medium">{n ? `${dayLabel(n.day)}, ${n.times[0]}` : "Нет свободного времени"}</p>
+        </div>
+        <button onClick={() => navigate(n ? bookUrl({ clinic: clinic.id, service: sid, day: n.day, time: n.times[0], doctor: d.id }) : `/doctors/${d.id}`)} className={btn({ variant: "primary", size: "sm", className: "shrink-0 px-4" })}>Выбрать время</button>
       </div>
     </article>
   );

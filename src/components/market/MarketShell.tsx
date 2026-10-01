@@ -61,14 +61,14 @@ const MarketShell = ({ children, title, back, right, hideNav, hideFooter, noHead
               </nav>
 
               <div className="flex shrink-0 items-center gap-1">
-                {right ?? (
+                {right ?? (back ? null : (
                   <>
                     <button onClick={() => setCityOpen(true)} className="flex h-11 items-center gap-1.5 rounded-xl px-2.5 text-[15px] font-medium hover:bg-ink/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
                       <MapPin className="h-[18px] w-[18px] text-ink-2" strokeWidth={1.75} />{city}<ChevronDown className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
                     </button>
                     <Btn variant="ghost" size="icon" aria-label="Меню" className="-mr-2.5 lg:hidden" onClick={() => setMenuOpen(true)}><Menu className="h-5 w-5" strokeWidth={1.75} /></Btn>
                   </>
-                )}
+                ))}
                 <Link to="/profile" aria-label="Профиль" className="ml-1 hidden h-11 w-11 items-center justify-center rounded-xl bg-surface-2 hover:bg-ink/10 lg:flex"><User className="h-5 w-5" strokeWidth={1.75} /></Link>
               </div>
             </div>

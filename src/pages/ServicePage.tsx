@@ -26,7 +26,7 @@ const ServicePage = () => {
         <h1 className="text-[34px] font-medium leading-[1.05] tracking-[-0.04em] lg:text-[56px]">{s.name}<br /><span className="text-ink-3">в Ставрополе</span></h1>
         <p className="mt-3 max-w-xl text-[16px] leading-relaxed text-ink-2">{s.about}</p>
         <dl className="mt-5 grid grid-cols-3 gap-2 lg:max-w-xl">
-          {[["Цена", prices.length ? `${rub(Math.min(...prices))} – ${rub(Math.max(...prices))}` : "уточняется"], ["Клиник", String(list.length)], ["Ближайшее", soon ? `${dayLabel(soon.day)} ${soon.times[0]}` : "—"]].map(([k, v]) => (
+          {[["Цена", prices.length ? `от ${rub(Math.min(...prices))}` : "уточняется"], ["Клиник", String(list.length)], ["Ближайшее", soon ? `${dayLabel(soon.day)} ${soon.times[0]}` : "—"]].map(([k, v]) => (
             <div key={k} className="rounded-2xl bg-surface-2 p-3"><dt className="text-[12px] text-ink-2">{k}</dt><dd className="mt-0.5 text-[14px] font-medium leading-snug">{v}</dd></div>
           ))}
         </dl>

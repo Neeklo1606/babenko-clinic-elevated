@@ -14,8 +14,8 @@ const Hero = () => {
     <section className="mx-auto max-w-[1320px] px-5 pb-10 pt-6 lg:grid lg:grid-cols-[1.05fr_1fr] lg:items-end lg:gap-16 lg:px-10 lg:pb-20 lg:pt-16">
       <div>
         <p className="eyebrow">Стоматологии Ставрополя</p>
-        <h1 className="mt-3 text-[40px] font-medium leading-[1.02] tracking-[-0.045em] min-[390px]:text-[44px] lg:text-[76px]">
-          Стоматолог рядом —<br />со свободным временем сегодня
+        <h1 className="mt-3 text-[36px] font-medium leading-[1.04] tracking-[-0.04em] min-[390px]:text-[38px] lg:text-[72px]">
+          Стоматолог рядом.<br /><span className="text-ink-3">Свободно уже сегодня.</span>
         </h1>
         <p className="mt-4 max-w-md text-[16px] leading-relaxed text-ink-2 lg:text-[18px]">Сравните цены, врачей и отзывы. Запишитесь онлайн за минуту — без звонков.</p>
       </div>
