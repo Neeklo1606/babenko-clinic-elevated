@@ -144,7 +144,7 @@ const ClinicPage = () => {
       <div className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line bg-ivory/95 backdrop-blur-md lg:hidden">
         <div className="flex h-[76px] items-center justify-between gap-3 px-5">
           <div><p className="text-[17px] font-medium">{fromRub(minPrice)}</p><p className="text-[12.5px] text-ink-2">{s ? "за выбранную услугу" : "минимальная цена"}</p></div>
-          <Btn size="lg" onClick={() => document.getElementById("time")?.scrollIntoView({ behavior: "smooth" })}>Записаться</Btn>
+          <Btn size="lg" onClick={() => navigate(`/booking?clinic=${c.id}`)}>Записаться</Btn>
         </div>
       </div>
 
