@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,106 +6,86 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98.4%;
-    --foreground: 220 13% 18%;
+    /* Marketplace palette — warm ivory, graphite, restrained lime */
+    --ivory: 50 21% 95%;
+    --surface: 0 0% 100%;
+    --surface-2: 60 11% 91%;
+    --graphite: 90 4% 9%;
+    --ink: 80 7% 8%;
+    --ink-2: 77 3% 43%;
+    --ink-3: 80 4% 60%;
+    --line: 80 7% 8% / 0.08;
+    --line-strong: 80 7% 8% / 0.14;
+    --lime: 77 90% 66%;
+    --lime-hover: 77 85% 60%;
+    --lime-soft: 77 60% 92%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 13% 18%;
+    /* shadcn semantic mapping */
+    --background: var(--ivory);
+    --foreground: var(--ink);
+    --card: var(--surface);
+    --card-foreground: var(--ink);
+    --popover: var(--surface);
+    --popover-foreground: var(--ink);
+    --primary: var(--graphite);
+    --primary-foreground: var(--ivory);
+    --secondary: var(--surface-2);
+    --secondary-foreground: var(--ink);
+    --muted: var(--surface-2);
+    --muted-foreground: var(--ink-2);
+    --accent: var(--lime-soft);
+    --accent-foreground: var(--ink);
+    --destructive: 4 70% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 60 6% 87%;
+    --input: 60 6% 87%;
+    --ring: var(--ink);
+    --radius: 1rem;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 18%;
+    --sidebar-background: var(--ivory);
+    --sidebar-foreground: var(--ink);
+    --sidebar-primary: var(--graphite);
+    --sidebar-primary-foreground: var(--ivory);
+    --sidebar-accent: var(--surface-2);
+    --sidebar-accent-foreground: var(--ink);
+    --sidebar-border: 60 6% 87%;
+    --sidebar-ring: var(--ink);
 
-    --primary: 222 64% 33%;
-    --primary-foreground: 210 40% 98%;
+    /* legacy tokens used by older inner pages */
+    --glass-border: 60 6% 87%;
+    --glass-shadow: none;
+    --hero-gradient: hsl(var(--ivory));
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 13% 18%;
-
-    --muted: 220 14% 96%;
-    --muted-foreground: 218 11% 65%;
-
-    --accent: 220 14% 96%;
-    --accent-foreground: 222 64% 33%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 222 64% 33%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* Custom clinic tokens */
-    --glass-bg: 0 0% 100% / 0.7;
-    --glass-border: 220 13% 91%;
-    --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-    --hero-gradient: linear-gradient(180deg, hsl(210 20% 98.4%) 0%, hsl(220 14% 96%) 100%);
-    --text-secondary: 220 9% 46%;
-    --expertise-bg: 222 64% 33%;
-    --footer-bg: 210 20% 98%;
-  }
-
-  .dark {
-    --background: 222 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --elev-sheet: 0 -8px 40px hsl(var(--ink) / 0.10);
+    --elev-float: 0 8px 28px hsl(var(--ink) / 0.10);
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
+  * { @apply border-border; }
+  html { -webkit-tap-highlight-color: transparent; }
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Manrope', system-ui, sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Geist', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01", "cv11";
   }
 }
 
 @layer utilities {
   .glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid hsl(var(--glass-border));
-    box-shadow: var(--glass-shadow);
-    border-radius: 20px;
+    background: hsl(var(--surface));
+    border: 1px solid hsl(var(--line));
+    border-radius: 22px;
   }
+  .hero-grid-bg { background: none; }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .eyebrow {
+    @apply text-[12px] font-medium uppercase tracking-[0.14em] text-ink-2;
+  }
+}
 
-  .hero-grid-bg {
-    background-image: 
-      linear-gradient(rgba(30, 58, 138, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(30, 58, 138, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

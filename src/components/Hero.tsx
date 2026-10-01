@@ -34,7 +34,7 @@ const Hero = () => {
             />
           </div>
 
-          <h1 className="text-[40px] font-bold text-primary leading-tight tracking-[-0.02em] mb-3">
+          <h1 className="text-[40px] font-semibold text-ink leading-tight tracking-[-0.02em] mb-3">
             Клиника Бабенко
           </h1>
           <p className="text-lg text-muted-foreground mb-2">
@@ -69,7 +69,7 @@ const Hero = () => {
           <div className="flex flex-col gap-3 w-full">
             <Link
               to="/appointment"
-              className="flex items-center justify-center bg-primary text-primary-foreground h-14 w-full rounded-xl text-lg font-semibold shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform duration-200"
+              className="flex items-center justify-center bg-lime text-ink h-14 w-full rounded-2xl text-lg font-medium hover:bg-lime-hover active:scale-[0.98] transition-transform duration-200"
             >
               Записаться на приём
             </Link>
@@ -84,14 +84,14 @@ const Hero = () => {
       </div>
 
       {/* ── DESKTOP HERO ── */}
-      <div className="hidden lg:flex relative z-10 w-[50%] items-center min-h-[90vh] pl-[8%] pr-[5%] bg-white">
+      <div className="hidden lg:flex relative z-10 w-[50%] items-center min-h-[90vh] pl-[8%] pr-[5%] bg-surface">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="max-w-[480px]"
         >
-          <h1 className="text-[56px] font-bold text-primary leading-[1.1] tracking-[-0.02em] mb-4">
+          <h1 className="text-[56px] font-semibold text-ink leading-[1.1] tracking-[-0.02em] mb-4">
             Клиника Бабенко
           </h1>
           <p className="text-2xl text-muted-foreground font-normal mb-3 max-w-md">
@@ -123,7 +123,7 @@ const Hero = () => {
           <div className="flex gap-4">
             <Link
               to="/appointment"
-              className="flex items-center justify-center bg-primary text-primary-foreground h-14 w-[220px] rounded-xl text-lg font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-200"
+              className="flex items-center justify-center bg-lime text-ink h-14 w-[220px] rounded-2xl text-lg font-medium hover:bg-lime-hover hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-200"
             >
               Записаться на приём
             </Link>
@@ -140,8 +140,8 @@ const Hero = () => {
       {/* Desktop photo */}
       <div className="hidden lg:block absolute top-0 right-0 w-[50%] h-full">
         {/* Gradient transition */}
-        <div className="absolute inset-y-0 left-0 w-[30%] z-10 bg-gradient-to-r from-white to-[#E8E8E8]/0" />
-        <div className="w-full h-full bg-[#E8E8E8] flex items-end justify-end pr-[8%]">
+        <div className="absolute inset-y-0 left-0 w-[30%] z-10 bg-gradient-to-r from-surface to-transparent" />
+        <div className="w-full h-full bg-surface-2 flex items-end justify-end pr-[8%]">
           <img
             src={doctorHero}
             alt="Врач клиники Бабенко"
