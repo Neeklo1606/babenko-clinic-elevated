@@ -74,7 +74,7 @@ const ClinicPage = () => {
             {times.length ? (
               <div className="mt-3 flex flex-wrap gap-2">{times.map((t) => <SlotChip key={t} time={t} onClick={() => navigate(bookUrl({ clinic: c.id, service: sid, day, time: t }))} />)}</div>
             ) : (
-              <p className="mt-3 text-[14.5px] text-ink-2">На этот день мест нет.{first && <> Ближайшее — <button className="font-medium text-ink underline underline-offset-4" onClick={() => setDay(first.day)}>{dayLabel(first.day).toLowerCase()} в {first.times[0]}</button></>}</p>
+              <p className="mt-3 text-[14.5px] text-ink-2">На этот день мест нет.{first && <> Ближайшее: <button className="font-medium text-ink underline underline-offset-4" onClick={() => setDay(first.day)}>{dayLabel(first.day).toLowerCase()} в {first.times[0]}</button></>}</p>
             )}
           </section>
 
@@ -144,7 +144,7 @@ const ClinicPage = () => {
       <div className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line bg-ivory/95 backdrop-blur-md lg:hidden">
         <div className="flex h-[76px] items-center justify-between gap-3 px-5">
           <div><p className="text-[17px] font-medium">{fromRub(minPrice)}</p><p className="text-[12.5px] text-ink-2">{s ? "за выбранную услугу" : "минимальная цена"}</p></div>
-          <Btn size="lg" onClick={() => document.getElementById("time")?.scrollIntoView({ behavior: "smooth" })}>Записаться</Btn>
+          <Btn size="lg" onClick={() => navigate(`/booking?clinic=${c.id}`)}>Записаться</Btn>
         </div>
       </div>
 

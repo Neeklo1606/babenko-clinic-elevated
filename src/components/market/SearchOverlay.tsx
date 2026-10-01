@@ -87,7 +87,7 @@ const SearchOverlay = ({ open, initial, onClose }: Props) => {
             <Group label="Популярное">{popularSearches.map((r) => <Row key={r} title={r} onClick={() => free(r)} />)}</Group>
           </>
         ) : empty ? (
-          <p className="mt-10 text-[16px] text-ink-2">Ничего не нашли по запросу «{q}». Попробуйте проще — например, «болит зуб».</p>
+          <p className="mt-10 text-[16px] text-ink-2">Ничего не нашли по запросу «{q}». Попробуйте проще, например, «болит зуб».</p>
         ) : (
           <>
             {res.s.length > 0 && <Group label="Услуги">{res.s.map((s) => <Row key={s.id} title={s.name} sub={`от ${s.from.toLocaleString("ru-RU")} ₽`} onClick={() => go(s.name, `/clinics?service=${s.id}`)} />)}</Group>}

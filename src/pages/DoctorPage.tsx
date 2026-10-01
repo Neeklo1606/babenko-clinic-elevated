@@ -34,7 +34,7 @@ const DoctorPage = () => {
             </div>
             {times.length ? (
               <div className="mt-3 flex flex-wrap gap-2">{times.map((t) => <SlotChip key={t} time={t} onClick={() => navigate(bookUrl({ clinic: clinic.id, service: d.services[0], day, time: t, doctor: d.id }))} />)}</div>
-            ) : <p className="mt-3 text-[14.5px] text-ink-2">В этот день приёма нет.{first && <> Ближайшее — {dayLabel(first.day).toLowerCase()} в {first.times[0]}.</>}</p>}
+            ) : <p className="mt-3 text-[14.5px] text-ink-2">В этот день приёма нет.{first && <> Ближайшее: {dayLabel(first.day).toLowerCase()} в {first.times[0]}.</>}</p>}
           </section>
 
           <section className="pt-10">

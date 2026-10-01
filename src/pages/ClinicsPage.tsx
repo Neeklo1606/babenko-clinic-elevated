@@ -135,7 +135,7 @@ const Content = () => {
             <ul className="mt-2">{sorts.map(([k, l]) => (
               <li key={k}><button onClick={() => { set({ sort: k === "rec" ? null : k }); setSheet(null); }} className="flex h-14 w-full items-center justify-between border-b border-line text-left text-[16px]">{l}{(get("sort") || "rec") === k && <span className="h-2.5 w-2.5 rounded-full bg-graphite" />}</button></li>
             ))}</ul>
-            <p className="mt-3 text-[12.5px] text-ink-3">«По рекомендации» — сочетание рейтинга и количества отзывов. Клиники не платят за место в списке.</p>
+            <p className="mt-3 text-[12.5px] text-ink-3">«По рекомендации»: сочетание рейтинга и количества отзывов. Клиники не платят за место в списке.</p>
           </div>
         </DrawerContent>
       </Drawer>
