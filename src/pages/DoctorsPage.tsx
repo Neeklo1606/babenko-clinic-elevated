@@ -1,74 +1,32 @@
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import MobileStickyCTA from "@/components/MobileStickyCTA";
-import { doctors, directions } from "@/data/clinic-data";
+import { useSearchParams } from "react-router-dom";
+import { Search } from "lucide-react";
+import MarketShell from "@/components/market/MarketShell";
+import { Chip, DoctorCard } from "@/components/market/parts";
+import { doctors } from "@/data/market";
+
+const specs = ["Терапевт", "Хирург", "Ортодонт", "Имплантолог", "Детский", "Гигиенист"];
 
 const DoctorsPage = () => {
+  const [sp, setSp] = useSearchParams();
+  const q = sp.get("q") ?? "";
+  const spec = sp.get("spec");
+  const set = (k: string, v: string | null) => { const n = new URLSearchParams(sp); v ? n.set(k, v) : n.delete(k); setSp(n, { replace: true }); };
+  const list = doctors.filter((d) => (!spec || d.spec === spec || (spec === "Хирург" && d.spec === "Имплантолог")) && (d.name + d.role).toLowerCase().includes(q.toLowerCase()));
   return (
-    <div className="min-h-screen bg-background pb-24 lg:pb-0">
-      <Header />
-
-      <div className="pt-24 pb-4">
-        <div className="container mx-auto px-6">
-          <nav className="text-sm text-muted-foreground">
-            <Link to="/" className="hover:text-primary transition-colors">Главная</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">Врачи</span>
-          </nav>
+    <MarketShell>
+      <div className="mx-auto max-w-[1320px] px-5 pb-12 pt-4 lg:px-10 lg:pt-10">
+        <h1 className="text-[32px] font-medium tracking-[-0.035em] lg:text-[48px]">Врачи Ставрополя</h1>
+        <label className="mt-4 flex h-[52px] items-center gap-3 rounded-2xl border border-line bg-surface px-4 focus-within:border-ink/40 lg:max-w-xl">
+          <Search className="h-[18px] w-[18px] text-ink-3" strokeWidth={1.75} />
+          <input value={q} onChange={(e) => set("q", e.target.value)} placeholder="Врач или специальность" aria-label="Врач или специальность" className="h-full flex-1 bg-transparent text-[16px] outline-none placeholder:text-ink-3" />
+        </label>
+        <div className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 py-3">
+          {specs.map((s) => <Chip key={s} active={spec === s} onClick={() => set("spec", spec === s ? null : s)}>{s}</Chip>)}
         </div>
+        <div className="mt-1 grid gap-3 lg:grid-cols-2 lg:gap-4">{list.map((d) => <DoctorCard key={d.id} d={d} />)}</div>
+        {!list.length && <p className="mt-8 text-[16px] text-ink-2">Никого не нашли. Попробуйте другой запрос.</p>}
       </div>
-
-      <section className="py-12 lg:py-20">
-        <div className="container mx-auto px-6">
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl lg:text-[56px] font-semibold text-primary mb-6">
-            Наши врачи
-          </motion.h1>
-          <p className="text-lg text-muted-foreground mb-16 max-w-2xl">
-            Команда специалистов высшей квалификации с многолетним опытом
-          </p>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {doctors.map((doc, i) => (
-              <motion.div
-                key={doc.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <Link
-                  to={`/doctors/${doc.id}`}
-                  className="block glass-card p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-5">
-                    <span className="text-2xl font-semibold text-primary">
-                      {doc.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold text-primary mb-1">{doc.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-1">{doc.specialization}</p>
-                  <p className="text-sm text-muted-foreground/80 mb-1">{doc.category}</p>
-                  <p className="text-sm text-primary font-medium mb-4">Стаж {doc.experience} лет</p>
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {doc.directions.map((dirSlug) => {
-                      const dir = directions.find((d) => d.slug === dirSlug);
-                      return dir ? (
-                        <span key={dirSlug} className="text-xs bg-primary/5 text-primary px-2.5 py-1 rounded-full">{dir.name}</span>
-                      ) : null;
-                    })}
-                  </div>
-                  <span className="text-primary font-semibold">{doc.price}</span>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-      <MobileStickyCTA />
-    </div>
+    </MarketShell>
   );
 };
 
