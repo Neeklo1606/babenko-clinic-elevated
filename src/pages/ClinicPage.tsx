@@ -33,7 +33,7 @@ const ClinicPage = () => {
   const setService = (v: string) => { const n = new URLSearchParams(sp); n.set("service", v); setSp(n, { replace: true }); setPick(false); };
 
   return (
-    <MarketShell noHeader hideNav>
+    <MarketShell noHeader hideNav hideFooter>
       <div className="mx-auto max-w-[1320px] pb-[calc(96px+env(safe-area-inset-bottom))] lg:grid lg:grid-cols-[1.3fr_1fr] lg:gap-10 lg:px-10 lg:pb-16 lg:pt-6">
         <div>
           <div className="relative aspect-[4/3] overflow-hidden bg-surface-2 lg:rounded-[22px]">

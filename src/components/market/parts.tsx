@@ -101,12 +101,13 @@ export const DoctorCard = ({ d, service, showClinic = true }: { d: Doctor; servi
           <p className="mt-0.5 text-[13.5px] leading-snug text-ink-2">{d.role}</p>
           <p className="text-[13.5px] leading-snug text-ink-2">{d.years} лет опыта{showClinic && ` · ${clinic.name}`}</p>
           <Rating rating={d.rating} reviews={d.reviews} className="mt-1.5 text-[13.5px]" />
+          <p className="mt-1.5 flex min-w-0 gap-1.5 text-[13px]"><span className="truncate text-ink-2">{s?.name}</span><span className="shrink-0 font-medium">{fromRub(clinic.prices[sid])}</span></p>
         </div>
       </div>
       <div className="mt-3.5 flex items-center justify-between gap-3 border-t border-line pt-3">
         <div className="min-w-0">
-          <p className="truncate text-[13px] text-ink-2">{s?.name} · {fromRub(clinic.prices[sid])}</p>
-          <p className="text-[14.5px] font-medium">{n ? `${dayLabel(n.day)}, ${n.times[0]}` : "Нет свободного времени"}</p>
+          <p className="text-[12.5px] text-ink-3">Ближайшее время</p>
+          <p className="text-[15px] font-medium">{n ? `${dayLabel(n.day)}, ${n.times[0]}` : "Нет свободного времени"}</p>
         </div>
         <button onClick={() => navigate(n ? bookUrl({ clinic: clinic.id, service: sid, day: n.day, time: n.times[0], doctor: d.id }) : `/doctors/${d.id}`)} className={btn({ variant: "primary", size: "sm", className: "shrink-0 px-4" })}>Выбрать время</button>
       </div>

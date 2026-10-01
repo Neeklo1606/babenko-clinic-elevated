@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { Check } from "lucide-react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { ArrowLeft, Check, X } from "lucide-react";
 import MarketShell from "@/components/market/MarketShell";
 import { Btn, btn } from "@/components/market/Btn";
 import { dayLong, fromRub, getClinic, getDoctor, getService } from "@/data/market";
@@ -11,6 +11,7 @@ export const loadBookings = (): Booking[] => { try { return JSON.parse(localStor
 
 const BookingPage = () => {
   const [sp] = useSearchParams();
+  const navigate = useNavigate();
   const c = getClinic(sp.get("clinic") ?? undefined);
   const s = getService(sp.get("service"));
   const d = getDoctor(sp.get("doctor") ?? undefined);
@@ -65,8 +66,16 @@ const BookingPage = () => {
   );
 
   return (
-    <MarketShell back title="Запись" hideNav hideFooter>
-      <form onSubmit={submit} noValidate className="mx-auto max-w-lg px-5 pb-[calc(110px+env(safe-area-inset-bottom))] pt-2">
+    <MarketShell noHeader hideNav hideFooter>
+      <header className="sticky top-0 z-40 bg-ivory/95 backdrop-blur-md">
+        <div className="mx-auto grid h-[58px] max-w-lg grid-cols-[44px_1fr_44px] items-center px-3">
+          <button onClick={() => navigate(-1)} aria-label="Назад" className="flex h-11 w-11 items-center justify-center rounded-xl hover:bg-ink/5"><ArrowLeft className="h-5 w-5" strokeWidth={1.75} /></button>
+          <div className="text-center"><p className="text-[16px] font-medium leading-tight">Запись</p><p className="text-[12px] text-ink-3">Шаг 2 из 2</p></div>
+          <Link to={`/clinics/${c.id}`} aria-label="Закрыть" className="flex h-11 w-11 items-center justify-center rounded-xl hover:bg-ink/5"><X className="h-5 w-5" strokeWidth={1.75} /></Link>
+        </div>
+        <div className="h-[2px] bg-line"><div className="h-full w-full bg-graphite" /></div>
+      </header>
+      <form onSubmit={submit} noValidate className="mx-auto max-w-lg px-5 pb-[calc(110px+env(safe-area-inset-bottom))] pt-5">
         {summary}
         <h2 className="mt-8 text-[20px] font-medium">Ваши данные</h2>
         {([["name", "Имя", name, setName, "text", "given-name"], ["phone", "Телефон", phone, setPhone, "tel", "tel"]] as const).map(([k, l, v, fn, type, ac]) => (
