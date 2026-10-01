@@ -17,7 +17,7 @@ const Hero = () => {
         <h1 className="mt-3 text-[36px] font-medium leading-[1.04] tracking-[-0.04em] min-[390px]:text-[38px] lg:text-[72px]">
           Стоматолог рядом.<br /><span className="text-ink-3">Свободно уже сегодня.</span>
         </h1>
-        <p className="mt-4 max-w-md text-[16px] leading-relaxed text-ink-2 lg:text-[18px]">Сравните цены, врачей и отзывы. Запишитесь онлайн за минуту — без звонков.</p>
+        <p className="mt-4 max-w-md text-[16px] leading-relaxed text-ink-2 lg:text-[18px]">Сравните цены, врачей и отзывы. Запишитесь онлайн за минуту, без звонков.</p>
       </div>
       <div className="mt-7 lg:mt-0">
         <button onClick={() => openSearch()} className="flex h-14 w-full items-center gap-3 rounded-2xl border border-line-strong bg-surface px-4 text-left text-[16px] text-ink-3 transition-colors hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
@@ -86,7 +86,7 @@ const How = () => (
     <div className="rounded-[28px] bg-graphite p-6 text-ivory lg:p-12">
       <h2 className="text-[28px] font-medium leading-tight tracking-[-0.03em] lg:text-[40px]">Как работает запись</h2>
       <ol className="mt-6 grid gap-5 lg:grid-cols-3 lg:gap-10">
-        {[["Опишите проблему", "Или выберите услугу — покажем подходящие клиники."], ["Сравните", "Цены, рейтинг, расстояние и ближайшее время рядом."], ["Запишитесь", "Выберите время — клиника подтвердит запись."]].map(([t, d], i) => (
+        {[["Опишите проблему", "Или выберите услугу, покажем подходящие клиники."], ["Сравните", "Цены, рейтинг, расстояние и ближайшее время рядом."], ["Запишитесь", "Выберите время, клиника подтвердит запись."]].map(([t, d], i) => (
           <li key={t} className="flex gap-4">
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-lime text-[15px] font-medium text-ink">{i + 1}</span>
             <div><p className="text-[17px] font-medium">{t}</p><p className="mt-1 text-[14.5px] text-ivory/60">{d}</p></div>

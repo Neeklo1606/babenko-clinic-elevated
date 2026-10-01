@@ -23,7 +23,7 @@ const BookingPage = () => {
   const time = sp.get("time") ?? "";
   const mode = sp.get("mode") === "doctor" || d ? "doctor" : "time";
 
-  const [step, setStep] = useState(() => (s ? (time ? 2 : 1) : 0));
+  const [step, setStep] = useState(() => (time ? 2 : s ? 1 : 0));
   const [selDay, setSelDay] = useState<number | null>(dayParam ? Number(dayParam) : null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("+7 ");
@@ -113,7 +113,7 @@ const BookingPage = () => {
             <p className="mt-2 text-[15px] text-ink-2">Цены клиники, итог врач назовёт до начала лечения.</p>
             <div className="mt-6 divide-y divide-line overflow-hidden rounded-[22px] border border-line bg-surface">
               {clinicServices.map((x) => (
-                <button key={x.id} onClick={() => { set({ service: x.id, doctor: null, time: null, day: null }); setStep(1); }}
+                <button key={x.id} onClick={() => { set({ service: x.id }); setStep(time ? 2 : 1); }}
                   className={cn("flex w-full items-center gap-4 px-4 py-4 text-left transition-colors hover:bg-ink/[0.03]", s?.id === x.id && "bg-lime/25")}>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[16px] font-medium">{x.name}</span>
@@ -122,7 +122,7 @@ const BookingPage = () => {
                   <span className="shrink-0 text-[14.5px] font-medium tabular-nums">{fromRub(c.prices[x.id])}</span>
                 </button>
               ))}
-              <button onClick={() => { set({ service: null, doctor: null }); setStep(1); }} className="flex w-full items-center justify-between px-4 py-4 text-left transition-colors hover:bg-ink/[0.03]">
+              <button onClick={() => { set({ service: null }); setStep(time ? 2 : 1); }} className="flex w-full items-center justify-between px-4 py-4 text-left transition-colors hover:bg-ink/[0.03]">
                 <span><span className="block text-[16px] font-medium">Не знаю, нужна консультация</span><span className="mt-0.5 block text-[13px] text-ink-3">Врач осмотрит и составит план</span></span>
               </button>
             </div>
@@ -169,7 +169,7 @@ const BookingPage = () => {
                     <button key={k} onClick={() => { setSelDay(k); set({ time: null }); }}
                       className={cn("flex h-[64px] min-w-[76px] shrink-0 flex-col items-center justify-center rounded-2xl border transition-all duration-200 active:scale-[0.97]", activeDay === k ? "border-graphite bg-graphite text-ivory" : "border-line-strong bg-surface")}>
                       <span className="text-[15px] font-medium">{dayLabel(k)}</span>
-                      <span className={cn("text-[12px]", activeDay === k ? "text-ivory/70" : "text-ink-3")}>{slots[k].length} окна</span>
+                      <span className={cn("text-[12px]", activeDay === k ? "text-ivory/70" : "text-ink-3")}>{slots[k].length} {slots[k].length === 1 ? "окно" : slots[k].length < 5 ? "окна" : "окон"}</span>
                     </button>
                   ))}
                 </div>
