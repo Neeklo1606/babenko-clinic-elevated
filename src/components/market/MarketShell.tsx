@@ -75,7 +75,7 @@ const MarketShell = ({ children, title, back, right, hideNav, hideFooter, noHead
           </header>
         )}
 
-        <main className={cn(!hideNav && "pb-[calc(64px+env(safe-area-inset-bottom))] lg:pb-0")}>{children}</main>
+        <main key={useLocation().pathname} className={cn("animate-page",!hideNav && "pb-[calc(64px+env(safe-area-inset-bottom))] lg:pb-0")}>{children}</main>
         {!hideFooter && <MarketFooter />}
 
         {!hideNav && (

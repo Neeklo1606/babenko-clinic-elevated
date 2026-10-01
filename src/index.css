@@ -90,3 +90,11 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+@layer utilities {
+  .animate-page { animation: page-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .img-fade { opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease; }
+  .img-fade.is-loaded { opacity: 1; }
+  @keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .animate-page, .img-fade { animation: none; transition: none; opacity: 1; } }
+}
