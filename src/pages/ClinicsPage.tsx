@@ -124,7 +124,7 @@ const Content = () => {
       )}
 
       <button onClick={() => set({ view: view === "map" ? null : "map" })}
-        className={cn("fixed left-1/2 z-30 flex h-11 -translate-x-1/2 items-center gap-2 rounded-full bg-graphite px-5 text-[15px] font-medium text-ivory shadow-float", view === "map" ? "bottom-[calc(64px+env(safe-area-inset-bottom)+152px)] lg:bottom-auto lg:top-[150px]" : "bottom-[calc(64px+env(safe-area-inset-bottom)+16px)] lg:bottom-8")}>
+        className={cn("fixed left-1/2 z-30 flex h-11 -translate-x-1/2 items-center gap-2 rounded-full bg-graphite px-5 text-[15px] font-medium text-ivory shadow-float", view === "map" ? "top-[196px] lg:top-[210px]" : "bottom-[calc(64px+env(safe-area-inset-bottom)+16px)] lg:bottom-8")}>
         {view === "map" ? <><List className="h-4 w-4" />Список</> : <><MapIcon className="h-4 w-4" />Карта</>}
       </button>
 
@@ -183,7 +183,7 @@ const Content = () => {
 };
 
 const ClinicsPage = () => (
-  <MarketShell back title="Стоматологии" hideFooter>
+  <MarketShell back title="Стоматологии" hideFooter right={<></>}>
     <Content />
   </MarketShell>
 );
