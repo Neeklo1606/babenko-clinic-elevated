@@ -1,117 +1,47 @@
-import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Clock, ArrowRight } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import MobileStickyCTA from "@/components/MobileStickyCTA";
-import { services, doctors } from "@/data/clinic-data";
+import { Link, useParams } from "react-router-dom";
+import MarketShell from "@/components/market/MarketShell";
+import { ClinicCard, DoctorCard, SectionHead } from "@/components/market/parts";
+import { btn } from "@/components/market/Btn";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { clinicsForService, dayLabel, doctors, getService, nearest, rub } from "@/data/market";
+import NotFound from "./NotFound";
+
+const faq = [
+  ["Сколько стоит итоговое лечение?", "Точную цену врач назовёт после осмотра. На сервисе указана стартовая стоимость в каждой клинике."],
+  ["Можно ли отменить запись?", "Да, в разделе «Мои записи» в любой момент. Клиника получит уведомление."],
+  ["Нужно ли платить онлайн?", "Нет, оплата в клинике после приёма."],
+];
 
 const ServicePage = () => {
-  const { id } = useParams<{ id: string }>();
-
-  // Redirect old laser-co2 route
-  if (id === "laser-co2") {
-    const service = services.find((s) => s.id === "laser-co2");
-    if (!service) return null;
-  }
-
-  const service = services.find((s) => s.id === id);
-
-  if (!service) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <div className="pt-32 text-center">
-          <h1 className="text-4xl font-semibold text-primary">Услуга не найдена</h1>
-          <Link to="/services" className="text-primary mt-4 inline-block hover:underline">← Все услуги</Link>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  const relatedDoctors = doctors.filter((d) => d.directions.includes(service.direction));
-
+  const { id } = useParams();
+  const s = getService(id);
+  if (!s) return <NotFound />;
+  const list = clinicsForService(s.id);
+  const prices = list.map((c) => c.prices[s.id]);
+  const soon = list.map((c) => nearest(c.slots)).filter(Boolean).sort((a, b) => a!.day - b!.day)[0];
+  const docs = doctors.filter((d) => d.services.includes(s.id));
   return (
-    <div className="min-h-screen bg-background pb-24 lg:pb-0">
-      <Header />
+    <MarketShell back title={s.name}>
+      <div className="mx-auto max-w-[1320px] px-5 pb-12 pt-2 lg:px-10 lg:pt-10">
+        <h1 className="text-[34px] font-medium leading-[1.05] tracking-[-0.04em] lg:text-[56px]">{s.name}<br /><span className="text-ink-3">в Ставрополе</span></h1>
+        <p className="mt-3 max-w-xl text-[16px] leading-relaxed text-ink-2">{s.about}</p>
+        <dl className="mt-5 grid grid-cols-3 gap-2 lg:max-w-xl">
+          {[["Цена", prices.length ? `${rub(Math.min(...prices))} – ${rub(Math.max(...prices))}` : "уточняется"], ["Клиник", String(list.length)], ["Ближайшее", soon ? `${dayLabel(soon.day)} ${soon.times[0]}` : "—"]].map(([k, v]) => (
+            <div key={k} className="rounded-2xl bg-surface-2 p-3"><dt className="text-[12px] text-ink-2">{k}</dt><dd className="mt-0.5 text-[14px] font-medium leading-snug">{v}</dd></div>
+          ))}
+        </dl>
+        <Link to={`/clinics?service=${s.id}`} className={btn({ size: "lg", block: true, className: "mt-5 lg:w-auto" })}>Найти время</Link>
 
-      <div className="pt-24 pb-4">
-        <div className="container mx-auto px-6">
-          <nav className="text-sm text-muted-foreground">
-            <Link to="/" className="hover:text-primary transition-colors">Главная</Link>
-            <span className="mx-2">/</span>
-            <Link to="/services" className="hover:text-primary transition-colors">Услуги</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">{service.name}</span>
-          </nav>
-        </div>
+        <section className="pt-12"><SectionHead title="Клиники" /><div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{list.slice(0, 3).map((c) => <ClinicCard key={c.id} c={c} service={s.id} />)}</div></section>
+        {docs.length > 0 && <section className="pt-12"><SectionHead title="Врачи" /><div className="grid gap-3 lg:grid-cols-2">{docs.map((d) => <DoctorCard key={d.id} d={d} service={s.id} />)}</div></section>}
+        <section className="pt-12 lg:max-w-3xl">
+          <SectionHead title="Частые вопросы" />
+          <Accordion type="single" collapsible>
+            {faq.map(([q, a]) => <AccordionItem key={q} value={q} className="border-line"><AccordionTrigger className="text-left text-[16px] font-medium hover:no-underline">{q}</AccordionTrigger><AccordionContent className="text-[15px] text-ink-2">{a}</AccordionContent></AccordionItem>)}
+          </Accordion>
+        </section>
       </div>
-
-      {/* Hero */}
-      <section className="py-12 lg:py-20" style={{ background: "linear-gradient(180deg, hsl(210 20% 98.4%) 0%, hsl(214 100% 97%) 100%)" }}>
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-5 gap-10 items-start">
-            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-3">
-              <p className="text-sm text-muted-foreground mb-3">{service.directionLabel}</p>
-              <h1 className="text-4xl lg:text-[52px] font-semibold text-primary leading-[1.1] mb-4">{service.name}</h1>
-              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">{service.fullDescription}</p>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="lg:col-span-2 glass-card p-8 text-center lg:text-right">
-              <div className="text-[42px] font-semibold text-primary leading-none mb-2">{service.price}</div>
-              <div className="flex items-center justify-center lg:justify-end gap-2 text-muted-foreground mb-6">
-                <Clock className="w-4 h-4" />
-                <span className="text-sm">{service.duration}</span>
-              </div>
-              <Link
-                to="/appointment"
-                className="inline-flex items-center justify-center bg-primary text-primary-foreground px-8 py-3.5 rounded-xl text-base font-semibold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all"
-              >
-                Записаться
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Doctors */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-6">
-          <h2 className="text-[40px] font-semibold text-primary text-center mb-16">Специалисты</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {relatedDoctors.map((doc) => (
-              <Link key={doc.id} to={`/doctors/${doc.id}`} className="glass-card p-6 text-center hover:shadow-xl transition-all duration-300 block">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-xl font-semibold text-primary">
-                    {doc.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-                  </span>
-                </div>
-                <h3 className="text-lg font-semibold text-primary mb-1">{doc.name}</h3>
-                <p className="text-sm text-muted-foreground">{doc.specialization}</p>
-                <p className="text-sm text-primary font-medium mt-2">Стаж {doc.experience} лет</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 bg-secondary/30">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-semibold text-primary mb-4">Запишитесь на процедуру</h2>
-          <p className="text-lg text-muted-foreground mb-8">Выберите удобное время и врача</p>
-          <Link
-            to="/appointment"
-            className="inline-flex items-center justify-center bg-primary text-primary-foreground px-10 py-4 rounded-xl text-lg font-semibold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all"
-          >
-            Записаться на приём
-          </Link>
-        </div>
-      </section>
-
-      <Footer />
-      <MobileStickyCTA />
-    </div>
+    </MarketShell>
   );
 };
 
